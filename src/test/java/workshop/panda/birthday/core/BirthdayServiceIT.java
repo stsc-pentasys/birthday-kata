@@ -21,17 +21,8 @@ public class BirthdayServiceIT {
 
     private BirthdayService underTest = new BirthdayService();
 
-    private GreenMail greenMail = new GreenMail(new ServerSetup(3025, "127.0.0.1", "smtp"));
-
-    @Before
-    public void setUp() throws Exception {
-        greenMail.start();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        greenMail.stop();
-    }
+    @Rule
+    public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(3025, "127.0.0.1", "smtp"));
 
     @Test
     public void underTestAvailable() throws Exception {
