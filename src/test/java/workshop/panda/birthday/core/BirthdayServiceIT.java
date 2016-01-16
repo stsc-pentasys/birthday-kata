@@ -27,13 +27,8 @@ public class BirthdayServiceIT {
     public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(SMTP_PORT, SMTP_HOST, "smtp"));
 
     @Test
-    public void underTestAvailable() throws Exception {
-        assertThat("Test instance", underTest, notNullValue());
-    }
-
-    @Test
     public void emailSentToOneCustomer() throws Exception {
-        underTest.sendBirthdayGreetings(new BirthDate("2016-08-19"));
+        underTest.sendGreetings(new BirthDate("2016-08-19"));
         MimeMessage[] emails = greenMail.getReceivedMessages();
         assertThat("Number of messages", emails.length, is(1));
         assertMessage(emails[0], new BirthdayMessage(
@@ -45,17 +40,9 @@ public class BirthdayServiceIT {
 
     @Test
     public void emailsForCustomersWithSameBirthday() throws Exception {
-        underTest.sendBirthdayGreetings(new BirthDate("2016-09-23"));
+        underTest.sendGreetings(new BirthDate("2016-09-23"));
         MimeMessage[] emails = greenMail.getReceivedMessages();
         assertThat("Number of messages", emails.length, is(2));
-    }
-
-    @Test
-    public void smptServerAvailable() throws Exception {
-        GreenMailUtil.sendTextEmailTest("john.doe@apple.com", "jane.dough@oracle.com", "Test", "This is a test!");
-        MimeMessage[] emails = greenMail.getReceivedMessages();
-        assertThat("Number of messages", emails.length, is(1));
-        assertMessage(emails[0], new BirthdayMessage("jane.dough@oracle.com", "john.doe@apple.com", "Test", "This is a test!"));
     }
 
     private void assertMessage(MimeMessage message, BirthdayMessage expected) throws MessagingException {

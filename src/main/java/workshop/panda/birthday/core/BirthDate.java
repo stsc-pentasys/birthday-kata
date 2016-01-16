@@ -29,7 +29,7 @@ public class BirthDate {
         return sameDayOfMonth && sameMonth;
     }
 
-    public long ageAt(BirthDate today) {
+    public long differenceInYears(BirthDate today) {
         return date.until(today.date, ChronoUnit.YEARS);
     }
 

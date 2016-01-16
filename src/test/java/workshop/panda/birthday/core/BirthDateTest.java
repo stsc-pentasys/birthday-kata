@@ -3,8 +3,6 @@ package workshop.panda.birthday.core;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-import java.time.LocalDate;
-
 import org.junit.Test;
 
 /**
@@ -35,14 +33,14 @@ public class BirthDateTest {
     @Test
     public void ageAtOneDayBeforeBirthday() throws Exception {
         BirthDate today = new BirthDate("2016-01-15");
-        long age = underTest.ageAt(today);
+        long age = underTest.differenceInYears(today);
         assertThat("Age", age, is(15L));
     }
 
     @Test
     public void ageOnBirthday() throws Exception {
         BirthDate today = new BirthDate("2016-01-16");
-        long age = underTest.ageAt(today);
+        long age = underTest.differenceInYears(today);
         assertThat("Age", age, is(16L));
     }
 }

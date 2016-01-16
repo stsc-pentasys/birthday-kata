@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Properties;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -26,32 +24,29 @@ public class BirthdayService {
         this.mailProperties.put("mail.smtp.port", "" + smtpPort);
     }
 
-    public void sendBirthdayGreetings(BirthDate today) throws Exception {
+    public void sendGreetings(BirthDate today) throws Exception {
         BufferedReader in = new BufferedReader(new FileReader(fileName));
-        String str = "";
-        str = in.readLine();
-        while ((str = in.readLine()) != null) {
-            String[] rawData = str.split(";");
+        String line = in.readLine();
+        while ((line = in.readLine()) != null) {
+            String[] rawData = line.split(";");
             Customer customer = new Customer(
                     rawData[1],
                     rawData[0],
                     new BirthDate(rawData[2]),
                     rawData[3],
                     Gender.valueOf(rawData[4]));
-            if (customer.getBirthday().isSameDay(today)) {
-                String recipient = customer.getEmailAddress();
-                String subject = "Alles Gute zum Geburtstag!";
+            if (customer.hasBirthday(today)) {
                 String body = "Liebe %NAME%, Zu deinem %AGE%. Geburtstag alles Gute ..."
                         .replace("%NAME%", customer.getFirstName())
-                        .replace("%AGE%", Long.toString(customer.getBirthday().ageAt(today)));
+                        .replace("%AGE%", Long.toString(customer.age(today)));
 
                 Session session = Session.getInstance(mailProperties, null);
-                Message msg = new MimeMessage(session);
-                msg.setFrom(new InternetAddress("vertrieb@company.de"));
-                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-                msg.setSubject(subject);
-                msg.setText(body);
-                Transport.send(msg);
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("vertrieb@company.de"));
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(customer.getEmailAddress()));
+                message.setSubject("Alles Gute zum Geburtstag!");
+                message.setText(body);
+                Transport.send(message);
             }
         }
         in.close();

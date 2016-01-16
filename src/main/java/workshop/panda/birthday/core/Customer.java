@@ -29,16 +29,20 @@ public class Customer {
         return lastName;
     }
 
-    public BirthDate getBirthday() {
-        return birthday;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
 
     public Gender getGender() {
         return gender;
+    }
+
+    public boolean hasBirthday(BirthDate today) {
+        return birthday.isSameDay(today);
+    }
+
+    public long age(BirthDate today) {
+        return birthday.differenceInYears(today);
     }
 
     @Override
@@ -49,12 +53,13 @@ public class Customer {
         return Objects.equals(firstName, customer.firstName) &&
                 Objects.equals(lastName, customer.lastName) &&
                 Objects.equals(birthday, customer.birthday) &&
-                Objects.equals(emailAddress, customer.emailAddress);
+                Objects.equals(emailAddress, customer.emailAddress) &&
+                Objects.equals(gender, customer.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, birthday, emailAddress);
+        return Objects.hash(firstName, lastName, birthday, emailAddress, gender);
     }
 
     @Override
@@ -64,6 +69,7 @@ public class Customer {
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", birthday=").append(birthday);
         sb.append(", emailAddress='").append(emailAddress).append('\'');
+        sb.append(", gender=").append(gender).append('\'');
         sb.append('}');
         return sb.toString();
     }
