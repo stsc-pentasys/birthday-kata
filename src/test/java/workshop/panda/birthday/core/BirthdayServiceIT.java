@@ -1,18 +1,17 @@
 package workshop.panda.birthday.core;
 
-import com.icegreen.greenmail.junit.GreenMailRule;
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.GreenMailUtil;
-import com.icegreen.greenmail.util.ServerSetup;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-
-import javax.mail.internet.MimeMessage;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import com.icegreen.greenmail.junit.GreenMailRule;
+import com.icegreen.greenmail.util.GreenMailUtil;
+import com.icegreen.greenmail.util.ServerSetup;
+import org.junit.Rule;
+import org.junit.Test;
 
 /**
  * Created by schulzst on 15.01.2016.
@@ -30,9 +29,39 @@ public class BirthdayServiceIT {
     }
 
     @Test
+    public void emailSentToOneCustomer() throws Exception {
+        underTest.sendBirthdayGreetings(new BirthDate("2016-08-19"));
+        MimeMessage[] emails = greenMail.getReceivedMessages();
+        assertThat("Number of messages", emails.length, is(1));
+        assertMessage(emails[0], new BirthdayMessage(
+                "vertrieb@company.de",
+                "anastasia.baum@mnet-mail.de",
+                "Alles Gute zum Geburtstag",
+                "Liebe Anastasia, Zu Ihrem 38. Geburtstag wünschen wir Ihnen alles Gute."));
+    }
+
+    @Test
+    public void emailsForCustomersWithSameBirthday() throws Exception {
+        underTest.sendBirthdayGreetings(new BirthDate("2016-09-23"));
+        MimeMessage[] emails = greenMail.getReceivedMessages();
+        assertThat("Number of messages", emails.length, is(2));
+    }
+
+    @Test
     public void smptServerAvailable() throws Exception {
         GreenMailUtil.sendTextEmailTest("john.doe@apple.com", "jane.dough@oracle.com", "Test", "This is a test!");
         MimeMessage[] emails = greenMail.getReceivedMessages();
         assertThat("Number of messages", emails.length, is(1));
+        assertMessage(emails[0], new BirthdayMessage("jane.dough@oracle.com", "john.doe@apple.com", "Test", "This is a test!"));
+    }
+
+    private void assertMessage(MimeMessage message, BirthdayMessage expected) throws MessagingException {
+        BirthdayMessage sent = new BirthdayMessage(
+                GreenMailUtil.getAddressList(message.getFrom()),
+                GreenMailUtil.getAddressList(message.getRecipients(Message.RecipientType.TO)),
+                message.getSubject(),
+                GreenMailUtil.getBody(message));
+
+        assertThat("Message", sent, is(expected));
     }
 }
