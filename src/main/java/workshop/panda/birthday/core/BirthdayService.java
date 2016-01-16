@@ -11,28 +11,30 @@ public class BirthdayService {
 
     private MessagingPort messagingPort;
 
-    public BirthdayService(CustomerRepositoryPort customerRepository, MessagingPort messagingPort) throws Exception {
+    private TemplatePort templatePort;
+
+    public BirthdayService(CustomerRepositoryPort customerRepository, MessagingPort messagingPort, TemplatePort templatePort)
+        throws Exception {
         this.customerRepository = customerRepository;
         this.messagingPort = messagingPort;
+        this.templatePort = templatePort;
     }
 
     public void sendGreetings(BirthDate today) throws Exception {
         List<Customer> customers = customerRepository.findCustomersWithBirthday(today);
         for (Customer customer : customers) {
-            BirthdayMessage message = new BirthdayMessage(
-                "vertrieb@company.de",
-                customer.getEmailAddress(),
-                "Alles Gute zum Geburtstag!",
-                renderBody(today, customer)
-            );
+            BirthdayMessage message = createMessage(today, customer);
             messagingPort.sendMail(message);
         }
     }
 
-    private String renderBody(BirthDate today, Customer customer) {
-        return "Liebe %NAME%, Zu deinem %AGE%. Geburtstag alles Gute ..."
-                .replace("%NAME%", customer.getFirstName())
-                .replace("%AGE%", Long.toString(customer.age(today)));
+    private BirthdayMessage createMessage(BirthDate today, Customer customer) {
+        return new BirthdayMessage(
+            "vertrieb@company.de",
+            customer.getEmailAddress(),
+            "Alles Gute zum Geburtstag!",
+            templatePort.renderBody(today, customer)
+        );
     }
 
 }

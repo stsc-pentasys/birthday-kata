@@ -31,7 +31,8 @@ public class BirthdayServiceIT {
     public void setUp() throws Exception {
         underTest = new BirthdayService(
             new CsvCustomerRepositoryAdapter("src/test/resources/birthdays.csv"),
-            new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST));
+            new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST),
+            new SimpleTemplateAdapter("Liebe %NAME%, Zu deinem %AGE%. Geburtstag alles Gute ..."));
     }
 
     @Test
