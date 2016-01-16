@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 import com.icegreen.greenmail.junit.GreenMailRule;
 import com.icegreen.greenmail.util.GreenMailUtil;
 import com.icegreen.greenmail.util.ServerSetup;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -21,10 +22,15 @@ public class BirthdayServiceIT {
     private static final int SMTP_PORT = 3025;
     private static final String SMTP_HOST = "127.0.0.1";
 
-    private BirthdayService underTest = new BirthdayService("src/test/resources/birthdays.csv", SMTP_PORT, SMTP_HOST);
+    private BirthdayService underTest;
 
     @Rule
     public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(SMTP_PORT, SMTP_HOST, "smtp"));
+
+    @Before
+    public void setUp() throws Exception {
+        underTest = new BirthdayService("src/test/resources/birthdays.csv", SMTP_PORT, SMTP_HOST);
+    }
 
     @Test
     public void emailSentToOneCustomer() throws Exception {
