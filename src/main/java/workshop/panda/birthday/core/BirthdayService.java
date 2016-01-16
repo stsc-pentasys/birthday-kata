@@ -11,9 +11,9 @@ public class BirthdayService {
 
     private MessagingPort messagingPort;
 
-    public BirthdayService(String fileName, int smtpPort, String smtpHost) throws Exception {
-        this.customerRepository = new CustomerRepositoryAdapter(fileName);
-        this.messagingPort = new SmtpMessagingAdapter(smtpPort, smtpHost);
+    public BirthdayService(CustomerRepositoryPort customerRepository, MessagingPort messagingPort) throws Exception {
+        this.customerRepository = customerRepository;
+        this.messagingPort = messagingPort;
     }
 
     public void sendGreetings(BirthDate today) throws Exception {

@@ -29,7 +29,9 @@ public class BirthdayServiceIT {
 
     @Before
     public void setUp() throws Exception {
-        underTest = new BirthdayService("src/test/resources/birthdays.csv", SMTP_PORT, SMTP_HOST);
+        underTest = new BirthdayService(
+            new CsvCustomerRepositoryAdapter("src/test/resources/birthdays.csv"),
+            new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST));
     }
 
     @Test

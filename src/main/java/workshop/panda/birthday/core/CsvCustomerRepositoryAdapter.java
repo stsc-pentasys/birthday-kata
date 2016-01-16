@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 /**
  * Created by schulzst on 16.01.2016.
  */
-public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
+public class CsvCustomerRepositoryAdapter implements CustomerRepositoryPort {
 
     private String fileName;
 
     private List<Customer> customers = new ArrayList<>();
 
-    public CustomerRepositoryAdapter(String fileName) throws Exception {
+    public CsvCustomerRepositoryAdapter(String fileName) throws Exception {
         this.fileName = fileName;
         initRepository(fileName);
     }
