@@ -1,4 +1,4 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.messaging;
 
 import java.util.Properties;
 import javax.mail.Message;
@@ -7,6 +7,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import workshop.panda.birthday.core.BirthdayMessage;
 
 /**
  * Created by schulzst on 16.01.2016.

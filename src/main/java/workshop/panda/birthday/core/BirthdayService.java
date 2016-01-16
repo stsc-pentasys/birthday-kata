@@ -2,6 +2,10 @@ package workshop.panda.birthday.core;
 
 import java.util.List;
 
+import workshop.panda.birthday.messaging.MessagingPort;
+import workshop.panda.birthday.persistence.CustomerRepositoryPort;
+import workshop.panda.birthday.templating.TemplatePort;
+
 /**
  * Created by schulzst on 15.01.2016.
  */
