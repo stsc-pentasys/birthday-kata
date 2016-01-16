@@ -18,10 +18,13 @@ import org.junit.Test;
  */
 public class BirthdayServiceIT {
 
-    private BirthdayService underTest = new BirthdayService();
+    private static final int SMTP_PORT = 3025;
+    private static final String SMTP_HOST = "127.0.0.1";
+
+    private BirthdayService underTest = new BirthdayService("src/test/resources/birthdays.csv", SMTP_PORT, SMTP_HOST);
 
     @Rule
-    public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(3025, "127.0.0.1", "smtp"));
+    public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(SMTP_PORT, SMTP_HOST, "smtp"));
 
     @Test
     public void underTestAvailable() throws Exception {
@@ -36,8 +39,8 @@ public class BirthdayServiceIT {
         assertMessage(emails[0], new BirthdayMessage(
                 "vertrieb@company.de",
                 "anastasia.baum@mnet-mail.de",
-                "Alles Gute zum Geburtstag",
-                "Liebe Anastasia, Zu Ihrem 38. Geburtstag wünschen wir Ihnen alles Gute."));
+                "Alles Gute zum Geburtstag!",
+                "Liebe Anastasia, Zu deinem 38. Geburtstag alles Gute ..."));
     }
 
     @Test

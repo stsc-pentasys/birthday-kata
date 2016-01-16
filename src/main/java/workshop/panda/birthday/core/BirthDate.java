@@ -29,8 +29,8 @@ public class BirthDate {
         return sameDayOfMonth && sameMonth;
     }
 
-    public long ageAt(LocalDate today) {
-        return date.until(today, ChronoUnit.YEARS);
+    public long ageAt(BirthDate today) {
+        return date.until(today.date, ChronoUnit.YEARS);
     }
 
     @Override

@@ -34,14 +34,14 @@ public class BirthDateTest {
 
     @Test
     public void ageAtOneDayBeforeBirthday() throws Exception {
-        LocalDate today = LocalDate.parse("2016-01-15");
+        BirthDate today = new BirthDate("2016-01-15");
         long age = underTest.ageAt(today);
         assertThat("Age", age, is(15L));
     }
 
     @Test
     public void ageOnBirthday() throws Exception {
-        LocalDate today = LocalDate.parse("2016-01-16");
+        BirthDate today = new BirthDate("2016-01-16");
         long age = underTest.ageAt(today);
         assertThat("Age", age, is(16L));
     }
