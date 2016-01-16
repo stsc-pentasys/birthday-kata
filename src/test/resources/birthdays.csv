@@ -1,5 +1,6 @@
-last_name;first_name;birthday;email_address
-Blume;Wolfgang;23.09.1968;blumhe@gmx.de
-Baum;Anastasia;19.08.1978;anastasia.baum@mnet-mail.de
-Tanne;Sieglinde;23.09.1956;sieglinde23@web.de
-Rose;Sebastian;29.02.1988;bastirose@googlemail.com
+last_name;first_name;birthday;email_address;gender
+Blume;Wolfgang;1968-09-23;blumhe@gmx.de;M
+Baum;Anastasia;1978-08-19;anastasia.baum@mnet-mail.de;F
+Tanne;Sieglinde;1956-09-23;sieglinde23@web.de;F
+Rose;Sebastian;1988-02-29;bastirose@googlemail.com;M
+Wiese;Hildegard;1963-03-01;hildegard@wiese.de;F
