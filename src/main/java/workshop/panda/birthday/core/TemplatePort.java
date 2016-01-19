@@ -1,4 +1,4 @@
-package workshop.panda.birthday.templating;
+package workshop.panda.birthday.core;
 
 import workshop.panda.birthday.core.BirthDate;
 import workshop.panda.birthday.core.Customer;

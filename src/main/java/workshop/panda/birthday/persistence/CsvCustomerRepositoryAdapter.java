@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import workshop.panda.birthday.core.BirthDate;
 import workshop.panda.birthday.core.Customer;
+import workshop.panda.birthday.core.CustomerRepositoryPort;
 import workshop.panda.birthday.core.Gender;
 
 /**

@@ -32,7 +32,7 @@ public class BirthdayServiceIT {
 
     @Before
     public void setUp() throws Exception {
-        underTest = new BirthdayService(
+        underTest = new BirthdayServiceBean(
             new CsvCustomerRepositoryAdapter("src/test/resources/birthdays.csv"),
             new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST),
             new SimpleTemplateAdapter("Liebe {name}, Zu deinem {age}. Geburtstag alles Gute ..."));

@@ -2,6 +2,7 @@ package workshop.panda.birthday.templating;
 
 import workshop.panda.birthday.core.BirthDate;
 import workshop.panda.birthday.core.Customer;
+import workshop.panda.birthday.core.TemplatePort;
 
 /**
  * Created by schulzst on 16.01.2016.

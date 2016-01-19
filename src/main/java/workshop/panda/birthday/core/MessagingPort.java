@@ -1,4 +1,4 @@
-package workshop.panda.birthday.messaging;
+package workshop.panda.birthday.core;
 
 import javax.mail.MessagingException;
 

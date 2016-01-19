@@ -1,4 +1,4 @@
-package workshop.panda.birthday.persistence;
+package workshop.panda.birthday.core;
 
 import java.util.List;
 

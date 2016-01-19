@@ -9,6 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import workshop.panda.birthday.core.BirthdayMessage;
+import workshop.panda.birthday.core.MessagingPort;
 
 /**
  * Created by schulzst on 16.01.2016.

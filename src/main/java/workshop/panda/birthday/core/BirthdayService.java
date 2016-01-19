@@ -1,44 +1,10 @@
 package workshop.panda.birthday.core;
 
-import java.util.List;
-
-import workshop.panda.birthday.messaging.MessagingPort;
-import workshop.panda.birthday.persistence.CustomerRepositoryPort;
-import workshop.panda.birthday.templating.TemplatePort;
-
 /**
- * Created by schulzst on 15.01.2016.
+ * Created by schulzst on 19.01.2016.
  */
-public class BirthdayService {
+public interface BirthdayService {
 
-    private CustomerRepositoryPort customerRepository;
-
-    private MessagingPort messagingPort;
-
-    private TemplatePort templatePort;
-
-    public BirthdayService(CustomerRepositoryPort customerRepository, MessagingPort messagingPort, TemplatePort templatePort)
-        throws Exception {
-        this.customerRepository = customerRepository;
-        this.messagingPort = messagingPort;
-        this.templatePort = templatePort;
-    }
-
-    public void sendGreetings(BirthDate today) throws Exception {
-        List<Customer> customers = customerRepository.findCustomersWithBirthday(today);
-        for (Customer customer : customers) {
-            BirthdayMessage message = createMessage(today, customer);
-            messagingPort.sendMail(message);
-        }
-    }
-
-    private BirthdayMessage createMessage(BirthDate today, Customer customer) {
-        return new BirthdayMessage(
-            "vertrieb@company.de",
-            customer.getEmailAddress(),
-            "Alles Gute zum Geburtstag!",
-            templatePort.renderBody(today, customer)
-        );
-    }
+    void sendGreetings(BirthDate today) throws Exception;
 
 }
