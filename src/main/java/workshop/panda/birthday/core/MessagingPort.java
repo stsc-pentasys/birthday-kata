@@ -2,7 +2,7 @@ package workshop.panda.birthday.core;
 
 import javax.mail.MessagingException;
 
-import workshop.panda.birthday.core.BirthdayMessage;
+import workshop.panda.birthday.core.model.BirthdayMessage;
 
 /**
  * Created by schulzst on 16.01.2016.

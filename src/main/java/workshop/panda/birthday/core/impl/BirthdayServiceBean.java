@@ -1,6 +1,14 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.core.impl;
 
 import java.util.List;
+
+import workshop.panda.birthday.core.model.BirthDate;
+import workshop.panda.birthday.core.model.BirthdayMessage;
+import workshop.panda.birthday.core.BirthdayService;
+import workshop.panda.birthday.core.model.Customer;
+import workshop.panda.birthday.core.CustomerRepositoryPort;
+import workshop.panda.birthday.core.MessagingPort;
+import workshop.panda.birthday.core.TemplatePort;
 
 /**
  * Created by schulzst on 15.01.2016.

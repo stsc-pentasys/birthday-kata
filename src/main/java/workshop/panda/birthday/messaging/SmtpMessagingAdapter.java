@@ -8,7 +8,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import workshop.panda.birthday.core.BirthdayMessage;
+import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.MessagingPort;
 
 /**

@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
+import workshop.panda.birthday.core.model.BirthDate;
 
 /**
  * Created by schulzst on 16.01.2016.

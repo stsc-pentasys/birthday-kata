@@ -1,4 +1,4 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.core.model;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

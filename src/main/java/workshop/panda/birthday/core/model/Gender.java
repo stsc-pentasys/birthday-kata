@@ -1,4 +1,4 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.core.model;
 
 /**
  * Created by schulzst on 16.01.2016.

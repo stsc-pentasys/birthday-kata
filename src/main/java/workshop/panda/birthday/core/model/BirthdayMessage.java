@@ -1,4 +1,4 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.core.model;
 
 import java.util.Objects;
 

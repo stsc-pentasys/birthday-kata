@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import workshop.panda.birthday.core.BirthDate;
-import workshop.panda.birthday.core.Customer;
+import workshop.panda.birthday.core.model.BirthDate;
+import workshop.panda.birthday.core.model.Customer;
 import workshop.panda.birthday.core.CustomerRepositoryPort;
-import workshop.panda.birthday.core.Gender;
+import workshop.panda.birthday.core.model.Gender;
 
 /**
  * Created by schulzst on 16.01.2016.
