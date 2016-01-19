@@ -8,9 +8,9 @@ import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.BirthdayService;
 import workshop.panda.birthday.core.model.Customer;
-import workshop.panda.birthday.core.CustomerRepositoryPort;
-import workshop.panda.birthday.core.MessagingPort;
-import workshop.panda.birthday.core.TemplatePort;
+import workshop.panda.birthday.core.CustomerRepository;
+import workshop.panda.birthday.core.Messenger;
+import workshop.panda.birthday.core.TemplateEngine;
 import workshop.panda.birthday.core.model.Gender;
 
 /**
@@ -18,26 +18,26 @@ import workshop.panda.birthday.core.model.Gender;
  */
 public class BirthdayServiceBean implements BirthdayService {
 
-    private CustomerRepositoryPort customerRepository;
+    private CustomerRepository customerRepository;
 
-    private MessagingPort messagingPort;
+    private Messenger messenger;
 
-    private TemplatePort templatePort;
+    private TemplateEngine templateEngine;
 
     BirthdayServiceBean() {}
 
-    public BirthdayServiceBean(CustomerRepositoryPort customerRepository, MessagingPort messagingPort, TemplatePort templatePort)
+    public BirthdayServiceBean(CustomerRepository customerRepository, Messenger messenger, TemplateEngine templateEngine)
         throws Exception {
         this.customerRepository = customerRepository;
-        this.messagingPort = messagingPort;
-        this.templatePort = templatePort;
+        this.messenger = messenger;
+        this.templateEngine = templateEngine;
     }
 
     @Override
     public void sendGreetings(BirthDate today) throws Exception {
         List<Customer> customers = customerRepository.findCustomersWithBirthday(today);
         for (Customer customer : customers) {
-            messagingPort.sendMail(new BirthdayMessage(
+            messenger.sendMail(new BirthdayMessage(
                     "vertrieb@company.de",
                     customer.getEmailAddress(),
                     "Alles Gute zum Geburtstag!",
@@ -51,7 +51,7 @@ public class BirthdayServiceBean implements BirthdayService {
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
         replacements.put("age", Long.toString(customer.age(today)));
-        return templatePort.fillTemplate(replacements);
+        return templateEngine.fillTemplate(replacements);
     }
 
 }
