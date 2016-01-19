@@ -24,6 +24,8 @@ public class BirthdayServiceBean implements BirthdayService {
 
     private TemplatePort templatePort;
 
+    BirthdayServiceBean() {}
+
     public BirthdayServiceBean(CustomerRepositoryPort customerRepository, MessagingPort messagingPort, TemplatePort templatePort)
         throws Exception {
         this.customerRepository = customerRepository;
