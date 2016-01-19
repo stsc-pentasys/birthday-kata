@@ -38,7 +38,7 @@ public class BirthdayServiceIT {
         underTest = new BirthdayServiceBean(
             new CsvCustomerRepositoryAdapter("src/test/resources/birthdays.csv"),
             new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST),
-            new SimpleTemplateAdapter("Liebe {name}, Zu deinem {age}. Geburtstag alles Gute ..."));
+            new SimpleTemplateAdapter("{title} {name}, Zu deinem {age}. Geburtstag alles Gute ..."));
     }
 
     @Test

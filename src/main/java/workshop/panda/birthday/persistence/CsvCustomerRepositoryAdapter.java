@@ -30,16 +30,20 @@ public class CsvCustomerRepositoryAdapter implements CustomerRepositoryPort {
         BufferedReader in = new BufferedReader(new FileReader(fileName));
         String line = in.readLine();
         while ((line = in.readLine()) != null) {
-            String[] rawData = line.split(";");
-            Customer customer = new Customer(
-                rawData[1],
-                rawData[0],
-                new BirthDate(rawData[2]),
-                rawData[3],
-                Gender.valueOf(rawData[4]));
+            Customer customer = transform(line);
             customers.add(customer);
         }
         in.close();
+    }
+
+    private Customer transform(String line) {
+        String[] rawData = line.split(";");
+        return new Customer(
+            rawData[1],
+            rawData[0],
+            new BirthDate(rawData[2]),
+            rawData[3],
+            Gender.valueOf(rawData[4]));
     }
 
     @Override

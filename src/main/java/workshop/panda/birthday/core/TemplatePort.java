@@ -1,5 +1,7 @@
 package workshop.panda.birthday.core;
 
+import java.util.Map;
+
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.Customer;
 
@@ -8,6 +10,6 @@ import workshop.panda.birthday.core.model.Customer;
  */
 public interface TemplatePort {
 
-    String renderBody(BirthDate today, Customer customer);
+    String fillTemplate(Map<String, String> replacements);
 
 }

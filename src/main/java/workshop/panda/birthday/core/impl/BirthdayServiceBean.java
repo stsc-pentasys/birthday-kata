@@ -1,6 +1,8 @@
 package workshop.panda.birthday.core.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
@@ -9,6 +11,7 @@ import workshop.panda.birthday.core.model.Customer;
 import workshop.panda.birthday.core.CustomerRepositoryPort;
 import workshop.panda.birthday.core.MessagingPort;
 import workshop.panda.birthday.core.TemplatePort;
+import workshop.panda.birthday.core.model.Gender;
 
 /**
  * Created by schulzst on 15.01.2016.
@@ -32,18 +35,21 @@ public class BirthdayServiceBean implements BirthdayService {
     public void sendGreetings(BirthDate today) throws Exception {
         List<Customer> customers = customerRepository.findCustomersWithBirthday(today);
         for (Customer customer : customers) {
-            BirthdayMessage message = createMessage(today, customer);
-            messagingPort.sendMail(message);
+            messagingPort.sendMail(new BirthdayMessage(
+                    "vertrieb@company.de",
+                    customer.getEmailAddress(),
+                    "Alles Gute zum Geburtstag!",
+                    createMessageBody(today, customer)
+                ));
         }
     }
 
-    private BirthdayMessage createMessage(BirthDate today, Customer customer) {
-        return new BirthdayMessage(
-            "vertrieb@company.de",
-            customer.getEmailAddress(),
-            "Alles Gute zum Geburtstag!",
-            templatePort.renderBody(today, customer)
-        );
+    private String createMessageBody(BirthDate today, Customer customer) {
+        Map<String, String> replacements = new HashMap<>();
+        replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
+        replacements.put("name", customer.getFirstName());
+        replacements.put("age", Long.toString(customer.age(today)));
+        return templatePort.fillTemplate(replacements);
     }
 
 }
