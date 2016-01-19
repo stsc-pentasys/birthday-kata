@@ -15,7 +15,7 @@ public class SimpleTemplateAdapter implements TemplatePort {
     }
 
     public String renderBody(BirthDate today, Customer customer) {
-        return template.replace("%NAME%", customer.getFirstName())
-            .replace("%AGE%", Long.toString(customer.age(today)));
+        return template.replace("{name}", customer.getFirstName())
+            .replace("{age}", Long.toString(customer.age(today)));
     }
 }
