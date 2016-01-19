@@ -36,9 +36,9 @@ public class BirthdayService {
                     rawData[3],
                     Gender.valueOf(rawData[4]));
             if (customer.hasBirthday(today)) {
-                String body = "Liebe %NAME%, Zu deinem %AGE%. Geburtstag alles Gute ..."
-                        .replace("%NAME%", customer.getFirstName())
-                        .replace("%AGE%", Long.toString(customer.age(today)));
+                String body = "Liebe {name}, Zu deinem {age}. Geburtstag alles Gute ..."
+                        .replace("{name}", customer.getFirstName())
+                        .replace("{age}", Long.toString(customer.age(today)));
 
                 Session session = Session.getInstance(mailProperties, null);
                 Message message = new MimeMessage(session);
