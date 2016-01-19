@@ -13,6 +13,7 @@ import com.icegreen.greenmail.util.ServerSetup;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import workshop.panda.birthday.GreenmailTestBase;
 import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
@@ -23,15 +24,9 @@ import workshop.panda.birthday.templating.SimpleTemplateEngine;
 /**
  * Created by schulzst on 15.01.2016.
  */
-public class BirthdayServiceIT {
-
-    private static final int SMTP_PORT = 3025;
-    private static final String SMTP_HOST = "127.0.0.1";
+public class BirthdayServiceIT extends GreenmailTestBase {
 
     private BirthdayService underTest;
-
-    @Rule
-    public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(SMTP_PORT, SMTP_HOST, "smtp"));
 
     @Before
     public void setUp() throws Exception {
@@ -58,15 +53,5 @@ public class BirthdayServiceIT {
         underTest.sendGreetings(new BirthDate("2016-09-23"));
         MimeMessage[] emails = greenMail.getReceivedMessages();
         assertThat("Number of messages", emails.length, is(2));
-    }
-
-    private void assertMessage(MimeMessage message, BirthdayMessage expected) throws MessagingException {
-        BirthdayMessage sent = new BirthdayMessage(
-                GreenMailUtil.getAddressList(message.getFrom()),
-                GreenMailUtil.getAddressList(message.getRecipients(Message.RecipientType.TO)),
-                message.getSubject(),
-                GreenMailUtil.getBody(message));
-
-        assertThat("Message", sent, is(expected));
     }
 }
