@@ -16,9 +16,9 @@ import org.junit.Test;
 import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
-import workshop.panda.birthday.messaging.SmtpMessagingAdapter;
-import workshop.panda.birthday.persistence.CsvCustomerRepositoryAdapter;
-import workshop.panda.birthday.templating.SimpleTemplateAdapter;
+import workshop.panda.birthday.messaging.SmtpMessenger;
+import workshop.panda.birthday.persistence.CsvCustomerRepository;
+import workshop.panda.birthday.templating.SimpleTemplateEngine;
 
 /**
  * Created by schulzst on 15.01.2016.
@@ -36,9 +36,9 @@ public class BirthdayServiceIT {
     @Before
     public void setUp() throws Exception {
         underTest = new BirthdayServiceBean(
-            new CsvCustomerRepositoryAdapter("src/test/resources/birthdays.csv"),
-            new SmtpMessagingAdapter(SMTP_PORT, SMTP_HOST),
-            new SimpleTemplateAdapter("{title} {name}, Zu deinem {age}. Geburtstag alles Gute ..."));
+            new CsvCustomerRepository("src/test/resources/birthdays.csv"),
+            new SmtpMessenger(SMTP_PORT, SMTP_HOST),
+            new SimpleTemplateEngine("{title} {name}, Zu deinem {age}. Geburtstag alles Gute ..."));
     }
 
     @Test

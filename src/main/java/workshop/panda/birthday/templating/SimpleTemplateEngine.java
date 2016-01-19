@@ -2,18 +2,16 @@ package workshop.panda.birthday.templating;
 
 import java.util.Map;
 
-import workshop.panda.birthday.core.model.BirthDate;
-import workshop.panda.birthday.core.model.Customer;
-import workshop.panda.birthday.core.TemplatePort;
+import workshop.panda.birthday.core.TemplateEngine;
 
 /**
  * Created by schulzst on 16.01.2016.
  */
-public class SimpleTemplateAdapter implements TemplatePort {
+public class SimpleTemplateEngine implements TemplateEngine {
 
     private String template;
 
-    public SimpleTemplateAdapter(String template) {
+    public SimpleTemplateEngine(String template) {
         this.template = template;
     }
 

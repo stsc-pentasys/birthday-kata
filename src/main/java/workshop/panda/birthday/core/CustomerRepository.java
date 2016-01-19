@@ -8,7 +8,7 @@ import workshop.panda.birthday.core.model.Customer;
 /**
  * Created by schulzst on 16.01.2016.
  */
-public interface CustomerRepositoryPort {
+public interface CustomerRepository {
 
     List<Customer> findCustomersWithBirthday(BirthDate today);
 

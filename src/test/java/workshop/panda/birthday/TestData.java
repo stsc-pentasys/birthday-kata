@@ -31,13 +31,13 @@ public final class TestData {
         DEFAULT_BODY
     );
 
-    public static List<Customer> defaultCustomerList() {
+    public static final List<Customer> defaultCustomerList() {
         List<Customer> customers = new ArrayList<>(1);
         customers.add(DEFAULT_CUSTOMER);
         return customers;
     }
 
-    public static Map<String, String> defaultReplacements() {
+    public static final Map<String, String> defaultReplacements() {
         Map<String, String> replacements = new HashMap<>();
         replacements.put("title", "Lieber");
         replacements.put("name", DEFAULT_CUSTOMER.getFirstName());

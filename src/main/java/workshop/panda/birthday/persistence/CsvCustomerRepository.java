@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.Customer;
-import workshop.panda.birthday.core.CustomerRepositoryPort;
+import workshop.panda.birthday.core.CustomerRepository;
 import workshop.panda.birthday.core.model.Gender;
 
 /**
  * Created by schulzst on 16.01.2016.
  */
-public class CsvCustomerRepositoryAdapter implements CustomerRepositoryPort {
+public class CsvCustomerRepository implements CustomerRepository {
 
     private String fileName;
 
     private List<Customer> customers = new ArrayList<>();
 
-    public CsvCustomerRepositoryAdapter(String fileName) throws Exception {
+    public CsvCustomerRepository(String fileName) throws Exception {
         this.fileName = fileName;
         initRepository(fileName);
     }

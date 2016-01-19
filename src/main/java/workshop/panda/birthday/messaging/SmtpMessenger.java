@@ -9,16 +9,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import workshop.panda.birthday.core.model.BirthdayMessage;
-import workshop.panda.birthday.core.MessagingPort;
+import workshop.panda.birthday.core.Messenger;
 
 /**
  * Created by schulzst on 16.01.2016.
  */
-public class SmtpMessagingAdapter implements MessagingPort {
+public class SmtpMessenger implements Messenger {
 
     private Properties mailProperties = new Properties();
 
-    public SmtpMessagingAdapter(int smtpPort, String smtpHost) {
+    public SmtpMessenger(int smtpPort, String smtpHost) {
         this.mailProperties.put("mail.smtp.host", smtpHost);
         this.mailProperties.put("mail.smtp.port", "" + smtpPort);
     }
