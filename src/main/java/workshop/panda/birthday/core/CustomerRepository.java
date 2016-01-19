@@ -10,6 +10,6 @@ import workshop.panda.birthday.core.model.Customer;
  */
 public interface CustomerRepository {
 
-    List<Customer> findCustomersWithBirthday(BirthDate today);
+    List<Customer> findByBirthday(BirthDate today);
 
 }

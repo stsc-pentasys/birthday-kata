@@ -36,11 +36,11 @@ public class BirthdayServiceBeanTest {
     public void sendsOneMessage() throws Exception {
         BirthDate today = new BirthDate("2016-09-23");
 
-        when(customerRepositoryMock.findCustomersWithBirthday(today)).thenReturn(defaultCustomerList());
-        when(templateEngineMock.fillTemplate(defaultReplacements())).thenReturn(DEFAULT_BODY);
+        when(customerRepositoryMock.findByBirthday(today)).thenReturn(defaultCustomerList());
+        when(templateEngineMock.replaceInTemplate(defaultReplacements())).thenReturn(DEFAULT_BODY);
 
         underTest.sendGreetings(today);
 
-        verify(messengerMock).sendMail(DEFAULT_MESSAGE);
+        verify(messengerMock).send(DEFAULT_MESSAGE);
     }
 }

@@ -35,9 +35,9 @@ public class BirthdayServiceBean implements BirthdayService {
 
     @Override
     public void sendGreetings(BirthDate today) throws Exception {
-        List<Customer> customers = customerRepository.findCustomersWithBirthday(today);
+        List<Customer> customers = customerRepository.findByBirthday(today);
         for (Customer customer : customers) {
-            messenger.sendMail(new BirthdayMessage(
+            messenger.send(new BirthdayMessage(
                     "vertrieb@company.de",
                     customer.getEmailAddress(),
                     "Alles Gute zum Geburtstag!",
@@ -51,7 +51,7 @@ public class BirthdayServiceBean implements BirthdayService {
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
         replacements.put("age", Long.toString(customer.age(today)));
-        return templateEngine.fillTemplate(replacements);
+        return templateEngine.replaceInTemplate(replacements);
     }
 
 }

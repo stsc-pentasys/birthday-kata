@@ -24,13 +24,13 @@ public class SmtpMessenger implements Messenger {
     }
 
     @Override
-    public void sendMail(BirthdayMessage birthdayMessage) throws MessagingException {
+    public void send(BirthdayMessage birthdayMessage) throws MessagingException {
         Session session = Session.getInstance(mailProperties, null);
-        Message message = transform(birthdayMessage, session);
+        Message message = createFrom(birthdayMessage, session);
         Transport.send(message);
     }
 
-    private Message transform(BirthdayMessage birthdayMessage, Session session) throws MessagingException {
+    private Message createFrom(BirthdayMessage birthdayMessage, Session session) throws MessagingException {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(birthdayMessage.getFrom()));
         message.setRecipient(Message.RecipientType.TO, new InternetAddress(birthdayMessage.getTo()));

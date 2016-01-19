@@ -8,5 +8,7 @@ import workshop.panda.birthday.core.model.BirthdayMessage;
  * Created by schulzst on 16.01.2016.
  */
 public interface Messenger {
-    void sendMail(BirthdayMessage birthdayMessage) throws MessagingException;
+
+    void send(BirthdayMessage birthdayMessage) throws MessagingException;
+
 }

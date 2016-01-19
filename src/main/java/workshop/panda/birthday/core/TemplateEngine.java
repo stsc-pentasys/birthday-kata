@@ -10,6 +10,6 @@ import workshop.panda.birthday.core.model.Customer;
  */
 public interface TemplateEngine {
 
-    String fillTemplate(Map<String, String> replacements);
+    String replaceInTemplate(Map<String, String> variables);
 
 }

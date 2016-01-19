@@ -47,7 +47,7 @@ public class CsvCustomerRepository implements CustomerRepository {
     }
 
     @Override
-    public List<Customer> findCustomersWithBirthday(BirthDate today) {
+    public List<Customer> findByBirthday(BirthDate today) {
         return customers.stream()
             .filter(c -> c.hasBirthday(today))
             .collect(Collectors.toList());

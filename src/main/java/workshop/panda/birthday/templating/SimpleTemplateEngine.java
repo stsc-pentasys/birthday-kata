@@ -16,9 +16,9 @@ public class SimpleTemplateEngine implements TemplateEngine {
     }
 
     @Override
-    public String fillTemplate(Map<String, String> replacements) {
+    public String replaceInTemplate(Map<String, String> variables) {
         String result = template;
-        for (Map.Entry<String, String> entry : replacements.entrySet()) {
+        for (Map.Entry<String, String> entry : variables.entrySet()) {
             result = result.replace("{" + entry.getKey() + "}", entry.getValue());
         }
         return result;
