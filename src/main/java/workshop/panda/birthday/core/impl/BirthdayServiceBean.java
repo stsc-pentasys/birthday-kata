@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import workshop.panda.birthday.core.TemplateException;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.BirthdayService;
@@ -46,12 +47,12 @@ public class BirthdayServiceBean implements BirthdayService {
         }
     }
 
-    private String createMessageBody(BirthDate today, Customer customer) {
+    private String createMessageBody(BirthDate today, Customer customer) throws TemplateException {
         Map<String, Object> replacements = new HashMap<>();
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
         replacements.put("age", customer.age(today));
-        return templateEngine.replaceInTemplate(replacements);
+        return templateEngine.replaceInTemplate("standard", replacements);
     }
 
 }

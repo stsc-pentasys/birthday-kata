@@ -7,6 +7,6 @@ import java.util.Map;
  */
 public interface TemplateEngine {
 
-    String replaceInTemplate(Map<String, Object> variables);
+    String replaceInTemplate(String templateId, Map<String, Object> variables) throws TemplateException;
 
 }

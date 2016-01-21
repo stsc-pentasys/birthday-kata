@@ -3,6 +3,7 @@ package workshop.panda.birthday.core;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,10 +31,13 @@ public class BirthdayServiceIT extends GreenmailTestBase {
 
     @Before
     public void setUp() throws Exception {
+        Properties templates = new Properties();
+        templates.setProperty("standard", "{title} {name}, Zu deinem {age}. Geburtstag alles Gute ...");
+
         underTest = new BirthdayServiceBean(
             new CsvCustomerRepository("src/test/resources/birthdays.csv"),
             new SmtpMessenger(SMTP_PORT, SMTP_HOST),
-            new SimpleTemplateEngine("{title} {name}, Zu deinem {age}. Geburtstag alles Gute ..."));
+            new SimpleTemplateEngine(templates));
     }
 
     @Test

@@ -1,27 +1,32 @@
 package workshop.panda.birthday.templating;
 
 import java.util.Map;
-import java.util.Objects;
+import java.util.Properties;
 
 import workshop.panda.birthday.core.TemplateEngine;
+import workshop.panda.birthday.core.TemplateException;
 
 /**
  * Created by schulzst on 16.01.2016.
  */
 public class SimpleTemplateEngine implements TemplateEngine {
 
-    private String template;
+    private Properties templates;
 
-    public SimpleTemplateEngine(String template) {
-        this.template = template;
+    public SimpleTemplateEngine(Properties templates) {
+        this.templates = templates;
     }
 
     @Override
-    public String replaceInTemplate(Map<String, Object> variables) {
-        String result = template;
-        for (Map.Entry<String, Object> entry : variables.entrySet()) {
-            result = result.replace("{" + entry.getKey() + "}", entry.getValue().toString());
+    public String replaceInTemplate(String templateId, Map<String, Object> variables) throws TemplateException {
+        if (templates.containsKey(templateId)) {
+            String result = templates.getProperty(templateId);
+            for (Map.Entry<String, Object> entry : variables.entrySet()) {
+                result = result.replace("{" + entry.getKey() + "}", entry.getValue().toString());
+            }
+            return result;
+        } else {
+            throw new TemplateException("No template found with id '" + templateId + "'");
         }
-        return result;
     }
 }

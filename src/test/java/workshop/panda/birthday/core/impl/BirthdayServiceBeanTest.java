@@ -37,7 +37,7 @@ public class BirthdayServiceBeanTest {
         BirthDate today = new BirthDate("2016-09-23");
 
         when(customerRepositoryMock.findByBirthday(today)).thenReturn(defaultCustomerList());
-        when(templateEngineMock.replaceInTemplate(defaultReplacements())).thenReturn(DEFAULT_BODY);
+        when(templateEngineMock.replaceInTemplate("standard", defaultReplacements())).thenReturn(DEFAULT_BODY);
 
         underTest.sendGreetings(today);
 
