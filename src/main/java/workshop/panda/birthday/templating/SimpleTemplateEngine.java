@@ -1,6 +1,7 @@
 package workshop.panda.birthday.templating;
 
 import java.util.Map;
+import java.util.Objects;
 
 import workshop.panda.birthday.core.TemplateEngine;
 
@@ -16,10 +17,10 @@ public class SimpleTemplateEngine implements TemplateEngine {
     }
 
     @Override
-    public String replaceInTemplate(Map<String, String> variables) {
+    public String replaceInTemplate(Map<String, Object> variables) {
         String result = template;
-        for (Map.Entry<String, String> entry : variables.entrySet()) {
-            result = result.replace("{" + entry.getKey() + "}", entry.getValue());
+        for (Map.Entry<String, Object> entry : variables.entrySet()) {
+            result = result.replace("{" + entry.getKey() + "}", entry.getValue().toString());
         }
         return result;
     }

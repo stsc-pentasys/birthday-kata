@@ -37,11 +37,11 @@ public final class TestData {
         return customers;
     }
 
-    public static final Map<String, String> defaultReplacements() {
-        Map<String, String> replacements = new HashMap<>();
+    public static final Map<String, Object> defaultReplacements() {
+        Map<String, Object> replacements = new HashMap<>();
         replacements.put("title", "Lieber");
         replacements.put("name", DEFAULT_CUSTOMER.getFirstName());
-        replacements.put("age", "48");
+        replacements.put("age", 48);
 
         return replacements;
     }

@@ -47,10 +47,10 @@ public class BirthdayServiceBean implements BirthdayService {
     }
 
     private String createMessageBody(BirthDate today, Customer customer) {
-        Map<String, String> replacements = new HashMap<>();
+        Map<String, Object> replacements = new HashMap<>();
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
-        replacements.put("age", Long.toString(customer.age(today)));
+        replacements.put("age", customer.age(today));
         return templateEngine.replaceInTemplate(replacements);
     }
 

@@ -18,8 +18,8 @@ public class SimpleTemplateEngineIT {
 
     @Test
     public void variablesReplaced() throws Exception {
-        Map<String, String> variables = new HashMap<>();
-        variables.put("number", "99");
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("number", 99);
         variables.put("drink", "beer");
 
         String result = underTest.replaceInTemplate(variables);
