@@ -13,7 +13,6 @@ import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.impl.SmtpMessenger;
-import workshop.panda.birthday.core.impl.CsvCustomerRepository;
 import workshop.panda.birthday.core.impl.SimpleTemplateEngine;
 
 /**
@@ -29,7 +28,7 @@ public class BirthdayServiceIT extends GreenmailTestBase {
         templates.setProperty("standard", "{title} {name}, Zu deinem {age}. Geburtstag alles Gute ...");
 
         underTest = new BirthdayServiceBean(
-            new CsvCustomerRepository("src/test/resources/birthdays.csv"),
+            "src/test/resources/birthdays.csv",
             new SmtpMessenger(SMTP_PORT, SMTP_HOST),
             new SimpleTemplateEngine(templates));
     }
