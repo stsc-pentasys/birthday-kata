@@ -16,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import workshop.panda.birthday.core.BirthdayService;
+import workshop.panda.birthday.core.TemplateException;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.model.Customer;
@@ -26,16 +27,16 @@ import workshop.panda.birthday.core.model.Gender;
  */
 public class BirthdayServiceBean implements BirthdayService {
 
-    private SimpleTemplateEngine templateEngine;
-
     private List<Customer> allCustomers = new ArrayList<>();
 
     private Properties mailProperties = new Properties();
 
+    private Properties templates;
+
     BirthdayServiceBean() {
     }
 
-    public BirthdayServiceBean(String fileName, int smtpPort, String smtpHost, SimpleTemplateEngine templateEngine)
+    public BirthdayServiceBean(String fileName, int smtpPort, String smtpHost, Properties templates)
         throws Exception {
         BufferedReader in = new BufferedReader(new FileReader(fileName));
         String line = in.readLine();
@@ -52,7 +53,7 @@ public class BirthdayServiceBean implements BirthdayService {
         in.close();
         this.mailProperties.put("mail.smtp.host", smtpHost);
         this.mailProperties.put("mail.smtp.port", "" + smtpPort);
-        this.templateEngine = templateEngine;
+        this.templates = templates;
     }
 
     @Override
@@ -65,11 +66,21 @@ public class BirthdayServiceBean implements BirthdayService {
             replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
             replacements.put("name", customer.getFirstName());
             replacements.put("age", customer.age(today));
+            String result1;
+            if (templates.containsKey("standard")) {
+                String result = templates.getProperty("standard");
+                for (Map.Entry<String, Object> entry : replacements.entrySet()) {
+                    result = result.replace("{" + entry.getKey() + "}", entry.getValue().toString());
+                }
+                result1 = result;
+            } else {
+                throw new TemplateException("No template found with id '" + "standard" + "'");
+            }
             BirthdayMessage birthdayMessage = new BirthdayMessage(
                 "vertrieb@company.de",
                 customer.getEmailAddress(),
                 "Alles Gute zum Geburtstag!",
-                templateEngine.replaceInTemplate("standard", replacements)
+                result1
             );
             Session session = Session.getInstance(mailProperties, null);
             Message message = new MimeMessage(session);

@@ -12,7 +12,6 @@ import workshop.panda.birthday.GreenmailTestBase;
 import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
-import workshop.panda.birthday.core.impl.SimpleTemplateEngine;
 
 /**
  * Created by schulzst on 15.01.2016.
@@ -29,7 +28,7 @@ public class BirthdayServiceIT extends GreenmailTestBase {
         underTest = new BirthdayServiceBean(
             "src/test/resources/birthdays.csv",
             SMTP_PORT, SMTP_HOST,
-            new SimpleTemplateEngine(templates));
+            templates);
     }
 
     @Test
