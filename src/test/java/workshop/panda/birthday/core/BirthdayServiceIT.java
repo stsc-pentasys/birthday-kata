@@ -12,7 +12,6 @@ import com.icegreen.greenmail.util.ServerSetup;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 
 /**
@@ -22,16 +21,18 @@ public class BirthdayServiceIT {
 
     protected static final int SMTP_PORT = 3025;
     protected static final String SMTP_HOST = "127.0.0.1";
+
+    private BirthdayService underTest;
+
     @Rule
     public final GreenMailRule greenMail = new GreenMailRule(new ServerSetup(BirthdayServiceIT.SMTP_PORT, BirthdayServiceIT.SMTP_HOST, "smtp"));
-    private BirthdayService underTest;
 
     @Before
     public void setUp() throws Exception {
         Properties templates = new Properties();
         templates.setProperty("standard", "{title} {name}, Zu deinem {age}. Geburtstag alles Gute ...");
 
-        underTest = new BirthdayServiceBean(
+        underTest = new BirthdayService(
             "src/test/resources/birthdays.csv",
             SMTP_PORT, SMTP_HOST,
             templates);
