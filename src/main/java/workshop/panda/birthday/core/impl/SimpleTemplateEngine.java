@@ -1,15 +1,14 @@
-package workshop.panda.birthday.templating;
+package workshop.panda.birthday.core.impl;
 
 import java.util.Map;
 import java.util.Properties;
 
-import workshop.panda.birthday.core.TemplateEngine;
 import workshop.panda.birthday.core.TemplateException;
 
 /**
  * Created by schulzst on 16.01.2016.
  */
-public class SimpleTemplateEngine implements TemplateEngine {
+public class SimpleTemplateEngine {
 
     private Properties templates;
 
@@ -17,7 +16,6 @@ public class SimpleTemplateEngine implements TemplateEngine {
         this.templates = templates;
     }
 
-    @Override
     public String replaceInTemplate(String templateId, Map<String, Object> variables) throws TemplateException {
         if (templates.containsKey(templateId)) {
             String result = templates.getProperty(templateId);

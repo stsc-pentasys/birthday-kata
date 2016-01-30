@@ -4,23 +4,17 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import com.icegreen.greenmail.junit.GreenMailRule;
-import com.icegreen.greenmail.util.GreenMailUtil;
-import com.icegreen.greenmail.util.ServerSetup;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import workshop.panda.birthday.GreenmailTestBase;
 import workshop.panda.birthday.core.impl.BirthdayServiceBean;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
-import workshop.panda.birthday.messaging.SmtpMessenger;
-import workshop.panda.birthday.persistence.CsvCustomerRepository;
-import workshop.panda.birthday.templating.SimpleTemplateEngine;
+import workshop.panda.birthday.core.impl.SmtpMessenger;
+import workshop.panda.birthday.core.impl.CsvCustomerRepository;
+import workshop.panda.birthday.core.impl.SimpleTemplateEngine;
 
 /**
  * Created by schulzst on 15.01.2016.

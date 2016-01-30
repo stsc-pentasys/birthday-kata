@@ -9,9 +9,6 @@ import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.BirthdayService;
 import workshop.panda.birthday.core.model.Customer;
-import workshop.panda.birthday.core.CustomerRepository;
-import workshop.panda.birthday.core.Messenger;
-import workshop.panda.birthday.core.TemplateEngine;
 import workshop.panda.birthday.core.model.Gender;
 
 /**
@@ -19,15 +16,15 @@ import workshop.panda.birthday.core.model.Gender;
  */
 public class BirthdayServiceBean implements BirthdayService {
 
-    private CustomerRepository customerRepository;
+    private CsvCustomerRepository customerRepository;
 
-    private Messenger messenger;
+    private SmtpMessenger messenger;
 
-    private TemplateEngine templateEngine;
+    private SimpleTemplateEngine templateEngine;
 
     BirthdayServiceBean() {}
 
-    public BirthdayServiceBean(CustomerRepository customerRepository, Messenger messenger, TemplateEngine templateEngine)
+    public BirthdayServiceBean(CsvCustomerRepository customerRepository, SmtpMessenger messenger, SimpleTemplateEngine templateEngine)
         throws Exception {
         this.customerRepository = customerRepository;
         this.messenger = messenger;
