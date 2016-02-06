@@ -16,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import workshop.panda.birthday.core.model.BirthDate;
+import workshop.panda.birthday.core.model.BirthdayMessage;
 import workshop.panda.birthday.core.model.Customer;
 import workshop.panda.birthday.core.model.Gender;
 
@@ -42,7 +43,13 @@ public class BirthdayServiceBean implements BirthdayService {
     public void sendGreetings(BirthDate today) throws Exception {
         List<Customer> customers = findCustomersByBirthday(today);
         for (Customer customer : customers) {
-            render(today, customer);
+            String body = renderBody(today, customer);
+            send(new BirthdayMessage(
+                "vertrieb@company.de",
+                customer.getEmailAddress(),
+                "Alles Gute zum Geburtstag!",
+                body
+            ));
         }
     }
 
@@ -73,7 +80,7 @@ public class BirthdayServiceBean implements BirthdayService {
             Gender.valueOf(rawData[4]));
     }
 
-    private void render(BirthDate today, Customer customer) throws MessagingException, TemplateException {
+    private String renderBody(BirthDate today, Customer customer) throws MessagingException, TemplateException {
         Map<String, Object> replacements = new HashMap<>();
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
@@ -83,19 +90,19 @@ public class BirthdayServiceBean implements BirthdayService {
             for (Map.Entry<String, Object> entry : replacements.entrySet()) {
                 body = body.replace("{" + entry.getKey() + "}", entry.getValue().toString());
             }
-            send(customer, body);
+            return body;
         } else {
             throw new TemplateException("No template found with id 'standard'");
         }
     }
 
-    private void send(Customer customer, String body) throws MessagingException {
+    private void send(BirthdayMessage birthdayMessage) throws MessagingException {
         Session session = Session.getInstance(mailProperties, null);
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("vertrieb@company.de"));
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(customer.getEmailAddress()));
-        message.setSubject("Alles Gute zum Geburtstag!");
-        message.setText(body);
+        message.setFrom(new InternetAddress(birthdayMessage.getSender()));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(birthdayMessage.getRecipient()));
+        message.setSubject(birthdayMessage.getSubject());
+        message.setText(birthdayMessage.getBody());
         Transport.send(message);
     }
 
