@@ -35,7 +35,7 @@ public class BirthdayServiceIT {
         underTest = new BirthdayServiceBean(
             new CsvCustomerRepository("src/test/resources/birthdays.csv"),
             new SmtpMessenger(SMTP_PORT, SMTP_HOST),
-            templates);
+            new PropertyTemplateEngine(templates));
     }
 
     @Test
