@@ -1,7 +1,10 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.templates;
 
 import java.util.Map;
 import java.util.Properties;
+
+import workshop.panda.birthday.core.TemplateEngine;
+import workshop.panda.birthday.core.TemplateException;
 
 public class PropertyTemplateEngine implements TemplateEngine {
 

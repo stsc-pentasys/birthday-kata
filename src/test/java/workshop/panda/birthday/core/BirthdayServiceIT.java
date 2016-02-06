@@ -13,6 +13,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import workshop.panda.birthday.core.model.BirthDate;
+import workshop.panda.birthday.messaging.SmtpMessenger;
+import workshop.panda.birthday.persistence.CsvCustomerRepository;
+import workshop.panda.birthday.templates.PropertyTemplateEngine;
 
 /**
  * Created by schulzst on 15.01.2016.

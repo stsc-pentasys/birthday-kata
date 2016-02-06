@@ -1,4 +1,4 @@
-package workshop.panda.birthday.core;
+package workshop.panda.birthday.persistence;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import workshop.panda.birthday.core.CustomerRepository;
 import workshop.panda.birthday.core.model.BirthDate;
 import workshop.panda.birthday.core.model.Customer;
 import workshop.panda.birthday.core.model.Gender;
