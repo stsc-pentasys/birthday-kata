@@ -32,7 +32,7 @@ public class BirthdayServiceIT {
         Properties templates = new Properties();
         templates.setProperty("standard", "{title} {name}, Zu deinem {age}. Geburtstag alles Gute ...");
 
-        underTest = new BirthdayService(
+        underTest = new BirthdayServiceBean(
             "src/test/resources/birthdays.csv",
             SMTP_PORT, SMTP_HOST,
             templates);
