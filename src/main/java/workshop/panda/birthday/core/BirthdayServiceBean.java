@@ -1,10 +1,6 @@
 package workshop.panda.birthday.core;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -25,15 +21,15 @@ import workshop.panda.birthday.core.model.Gender;
  */
 public class BirthdayServiceBean implements BirthdayService {
 
-    private String fileName;
+    private final CustomerRepository customerRepository;
 
     private Properties mailProperties = new Properties();
 
     private Properties templates;
 
-    public BirthdayServiceBean(String fileName, int smtpPort, String smtpHost, Properties templates)
+    public BirthdayServiceBean(CustomerRepository customerRepository, int smtpPort, String smtpHost, Properties templates)
         throws Exception {
-        this.fileName = fileName;
+        this.customerRepository = customerRepository;
         this.mailProperties.put("mail.smtp.host", smtpHost);
         this.mailProperties.put("mail.smtp.port", "" + smtpPort);
         this.templates = templates;
@@ -41,7 +37,7 @@ public class BirthdayServiceBean implements BirthdayService {
 
     @Override
     public void sendGreetings(BirthDate today) throws Exception {
-        List<Customer> customers = findCustomersByBirthday(today);
+        List<Customer> customers = customerRepository.findCustomersByBirthday(today);
         for (Customer customer : customers) {
             String body = renderBody(today, customer);
             send(new BirthdayMessage(
@@ -53,34 +49,7 @@ public class BirthdayServiceBean implements BirthdayService {
         }
     }
 
-    private List<Customer> findCustomersByBirthday(BirthDate today) throws IOException {
-        List<Customer> customers = new LinkedList<>();
-        BufferedReader in = new BufferedReader(new FileReader(fileName));
-        try {
-            String line = in.readLine();
-            while ((line = in.readLine()) != null) {
-                Customer customer = parseCustomer(line);
-                if (customer.hasBirthday(today)) {
-                    customers.add(customer);
-                }
-            }
-        } finally {
-            in.close();
-        }
-        return customers;
-    }
-
-    private Customer parseCustomer(String line) {
-        String[] rawData = line.split(";");
-        return new Customer(
-            rawData[1],
-            rawData[0],
-            new BirthDate(rawData[2]),
-            rawData[3],
-            Gender.valueOf(rawData[4]));
-    }
-
-    private String renderBody(BirthDate today, Customer customer) throws MessagingException, TemplateException {
+    public String renderBody(BirthDate today, Customer customer) throws MessagingException, TemplateException {
         Map<String, Object> replacements = new HashMap<>();
         replacements.put("title", customer.getGender() == Gender.FEMALE ? "Liebe" : "Lieber");
         replacements.put("name", customer.getFirstName());
@@ -96,7 +65,7 @@ public class BirthdayServiceBean implements BirthdayService {
         }
     }
 
-    private void send(BirthdayMessage birthdayMessage) throws MessagingException {
+    public void send(BirthdayMessage birthdayMessage) throws MessagingException {
         Session session = Session.getInstance(mailProperties, null);
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(birthdayMessage.getSender()));

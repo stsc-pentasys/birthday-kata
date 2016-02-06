@@ -33,7 +33,7 @@ public class BirthdayServiceIT {
         templates.setProperty("standard", "{title} {name}, Zu deinem {age}. Geburtstag alles Gute ...");
 
         underTest = new BirthdayServiceBean(
-            "src/test/resources/birthdays.csv",
+            new CsvCustomerRepository("src/test/resources/birthdays.csv"),
             SMTP_PORT, SMTP_HOST,
             templates);
     }
